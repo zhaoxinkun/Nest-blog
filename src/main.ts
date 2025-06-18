@@ -20,7 +20,7 @@ async function bootstrap() {
   // 当然了,我们也可以重写一下  common/validator
   // app.useGlobalPipes(new Validator());
 
-  await app.listen(process.env.PORT ?? 3700);
+  await app.listen(process.env.PORT ?? 3705);
 }
 
 bootstrap();
