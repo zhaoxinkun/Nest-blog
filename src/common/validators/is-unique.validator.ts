@@ -24,7 +24,7 @@ export class IsUniqueConstraint implements ValidatorConstraintInterface {
 
     const { field, model } = await args.constraints[0] as IsUniqueConstraintPayload;
 
-    const result = await this.prisma[model].findFirst({
+    const result = await this.prisma[model].findUnique({
       where: {
         [field]: value,
       },

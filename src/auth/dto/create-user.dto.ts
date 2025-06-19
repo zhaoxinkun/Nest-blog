@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, Length } from 'class-validator';
-import { IsUniqueDecorator } from '../common/decorator/is-unique.decorator';
+import { IsUniqueDecorator } from '../../common/decorator/is-unique.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty({
