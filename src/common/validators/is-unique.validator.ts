@@ -16,6 +16,7 @@ export class IsUniqueConstraint implements ValidatorConstraintInterface {
 
   async validate(value: any, args: ValidationArguments): Promise<boolean> {
 
+    console.log(args);
 
     // constraints是装饰器传来的参数
     console.log(args.constraints);

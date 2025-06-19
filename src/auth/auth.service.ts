@@ -2,6 +2,7 @@ import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './create-user.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import *  as bcrypt from 'bcryptjs';
+import { LoginUserDto } from './login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -41,15 +42,15 @@ export class AuthService {
     };
   }
 
-  async login(createUserDto: CreateUserDto) {
+  async login(loginUserDto: LoginUserDto) {
 
-    const findUser = await this.findUserByName(createUserDto.name);
+    const findUser = await this.findUserByName(loginUserDto.name);
     if (!findUser) {
       throw new HttpException('user is not found', HttpStatus.NOT_FOUND);
     }
 
     // 解密密码
-    const isPasswordMatch = await bcrypt.compare(createUserDto.password, findUser.password);
+    const isPasswordMatch = await bcrypt.compare(loginUserDto.password, findUser.password);
 
     if (!isPasswordMatch) {
       throw new HttpException('password is not correct', HttpStatus.UNAUTHORIZED);
@@ -58,7 +59,7 @@ export class AuthService {
     return {
       status: HttpStatus.OK,
       message: 'Login successfully',
-      name: `Login name is ${createUserDto.name}`,
+      name: `Login name is ${loginUserDto.name}`,
     };
 
   }

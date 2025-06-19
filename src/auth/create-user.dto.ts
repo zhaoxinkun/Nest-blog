@@ -1,6 +1,4 @@
-import { IsNotEmpty, Length } from 'class-validator';
-import { IsEmailAlreadyExistDecorator } from '../common/decorator/is-email-already-exist.decorator';
-import { IsUserAlreadyExistDecorator } from '../common/decorator/is-user-already-exist.decorator';
+import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 import { IsUniqueDecorator } from '../common/decorator/is-unique.decorator';
 
 export class CreateUserDto {
@@ -27,15 +25,12 @@ export class CreateUserDto {
   password: string;
 
 
-  @IsNotEmpty({
-    message: 'email is required',
-  })
   // 使用自定义验证器类
   // @Validate(IsEmailAlreadyExist)
   // 使用自定义验证装饰器
   // @IsEmailAlreadyExistDecorator({ message: 'email is already exists' })
-
   // 使用我自己的通用的装饰器
-  @IsUniqueDecorator('email', 'user', { message: 'email is already existsXXXXX' })
+  @IsOptional()
+  @IsUniqueDecorator('email', 'user', { message: 'email is already existsXXXX' })
   email: string;
 }
