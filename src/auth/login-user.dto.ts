@@ -13,5 +13,5 @@ export class LoginUserDto {
 
 
   @IsOptional()
-  email: string;
+  email: string | null;
 }

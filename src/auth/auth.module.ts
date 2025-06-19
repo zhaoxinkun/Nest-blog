@@ -4,9 +4,24 @@ import { AuthController } from './auth.controller';
 import { IsUserAlreadyExist } from '../common/validators/is-user-already-exist.validator';
 import { IsEmailAlreadyExist } from '../common/validators/is-email-already-exist.validator';
 import { IsUniqueConstraint } from '../common/validators/is-unique.validator';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from '../jwt/constants';
+// import * as process from 'node:process';
+import { JwtStrategy } from '../jwt/jwt.strategy';
+import * as process from 'node:process';
 
 @Module({
-  imports: [],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      // 一些配置项
+      signOptions: {
+        expiresIn: process.env.JWT_EXPIRES_IN || 5000,
+      },
+    }),
+  ],
   providers: [
     AuthService,
     // 使用自定义用户唯一性验证器
@@ -14,6 +29,7 @@ import { IsUniqueConstraint } from '../common/validators/is-unique.validator';
     // 使用自定义邮箱唯一性验证器
     IsEmailAlreadyExist,
     IsUniqueConstraint,
+    JwtStrategy,
   ],
   controllers: [AuthController],
 })
