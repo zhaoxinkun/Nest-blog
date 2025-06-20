@@ -1,6 +1,5 @@
 // 首次播种
 import * as bcrypt from 'bcryptjs';
-
 import { PrismaClient } from '@prisma/client';
 import { Random } from 'mockjs';
 

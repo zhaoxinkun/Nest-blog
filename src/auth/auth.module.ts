@@ -1,22 +1,23 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { IsUserAlreadyExist } from '../common/validators/is-user-already-exist.validator';
-import { IsEmailAlreadyExist } from '../common/validators/is-email-already-exist.validator';
-import { IsUniqueConstraint } from '../common/validators/is-unique.validator';
+import { IsUserAlreadyExist } from '@/common/validators/is-user-already-exist.validator';
+import { IsEmailAlreadyExist } from '@/common/validators/is-email-already-exist.validator';
+import { IsUniqueConstraint } from '@/common/validators/is-unique.validator';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from '../jwt/constants';
-// import * as process from 'node:process';
-import { JwtStrategy } from '../jwt/jwt.strategy';
+import { jwtConstants } from '@/jwt/constants';
+import { JwtStrategy } from '@/jwt/jwt.strategy';
 import * as process from 'node:process';
 
 @Module({
   imports: [
+    // 导入签发token模块
     PassportModule,
     JwtModule.register({
+      // 签名密钥
       secret: jwtConstants.secret,
-      // 一些配置项
+      // 一些配置项,如过期时间(注意格式)
       signOptions: {
         expiresIn: process.env.JWT_EXPIRES_IN || 5000,
       },
