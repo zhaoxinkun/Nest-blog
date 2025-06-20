@@ -64,7 +64,7 @@ $ npm run test:cov
   + login:登陆时先查询数据库是否包含用户,然后使用bcrypt和数据库中的加密密码进行比对,判断是否登录,并签发token(仅仅使用了用户的id和name即可,密码不行防止被解密)
 + prisma
   + 在env文件中配置链接地址,在schema中配置模型以及prisma-client
-  + 编写服务,用于声明prisma-client,以及模块,暴露出去
+  + 编写service,用于声明prisma-client,以及module,暴露出去
 + validator
   + 自定义验证类,需要实现class-validator包中的ValidatorConstraintInterface接口以及validate方法,接收我们的value以及args信息参数
   + 配置默认消息信息
@@ -76,6 +76,8 @@ $ npm run test:cov
   + 编写守卫
   + login中签发token
   + profile中使用守卫校验我们的token
++ article module
+  + 
 
 ## unfinished
 
