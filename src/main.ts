@@ -3,11 +3,12 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { TransformInterceptor } from './common/interceptor/transform.interceptor';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 // import Validator from './common/validator';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // 关键一行：绑定 class-validator 的容器为 Nest 的容器
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
@@ -23,6 +24,7 @@ async function bootstrap() {
   // 当然了,我们也可以重写一下  common/validator
   // app.useGlobalPipes(new Validator());
 
+  app.setGlobalPrefix('api');
 
   await app.listen(process.env.PORT ?? 3200);
 }

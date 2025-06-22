@@ -20,6 +20,7 @@ export class ArticleController {
     return this.articleService.findAll();
   }
 
+  // 分页查询
   @Get('row')
   findRow(
     @Query('page') page: number = 1,

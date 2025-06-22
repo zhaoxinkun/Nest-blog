@@ -28,6 +28,7 @@ export class ArticleService {
     return this.prisma.article.findMany();
   }
 
+  // 分页查询
   async paginate(page: number = 1, limit: number) {
 
     // 跳过多少条
@@ -37,7 +38,8 @@ export class ArticleService {
       this.prisma.article.count(),
       this.prisma.article.findMany({
         skip,
-        take: limit || this.config.get('ARTICLE_PAGE_ROW'),
+        take: limit,
+        // take:this.config.get('ARTICLE_PAGE_ROW', 10) : 10
         orderBy: { id: 'asc' },
       }),
     ]);
@@ -57,7 +59,7 @@ export class ArticleService {
   }
 
   // 查询id文章
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.prisma.article.findUnique({
       where: { id },
     });
@@ -77,7 +79,7 @@ export class ArticleService {
   }
 
   // 删除id文章
-  remove(id: number) {
+  async remove(id: number) {
     return this.prisma.article.delete({
       where: { id },
     });
