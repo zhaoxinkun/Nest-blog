@@ -19,6 +19,7 @@ export class ArticleService {
       data: {
         title: createArticleDto.title,
         content: createArticleDto.content,
+        categoryId: +createArticleDto.categoryId,
       },
     });
   }
@@ -74,6 +75,7 @@ export class ArticleService {
       data: {
         title: updateArticleDto.title,
         content: updateArticleDto.content,
+        categoryId: +updateArticleDto.categoryId,
       },
     });
   }

@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestj
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+// import { NotFoundArticleInterceptor } from '@/common/interceptor/not-found-article.interceptor';
 
+// @UseInterceptors(NotFoundArticleInterceptor)
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {

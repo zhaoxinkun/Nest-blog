@@ -16,6 +16,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//用户模型
 model user {
   id       Int     @id @default(autoincrement()) @db.UnsignedInt
   name     String  @unique
@@ -23,8 +24,18 @@ model user {
   email    String? @unique
 }
 
+//栏目模型
+model category {
+  id       Int       @id @default(autoincrement()) @db.UnsignedInt
+  title    String
+  articles article[]
+}
+
+//文章模型
 model article {
-  id      Int    @id @default(autoincrement()) @db.UnsignedInt
-  title   String
-  content String @db.Text
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  title      String
+  content    String   @db.Text
+  category   category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int      @db.UnsignedInt
 }

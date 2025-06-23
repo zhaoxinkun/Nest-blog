@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { TransformInterceptor } from './common/interceptor/transform.interceptor';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { NotFoundArticleInterceptor } from '@/common/interceptor/not-found-article.interceptor';
 
 // import Validator from './common/validator';
 
@@ -25,6 +26,8 @@ async function bootstrap() {
   // app.useGlobalPipes(new Validator());
 
   app.setGlobalPrefix('api');
+
+  app.useGlobalInterceptors(new NotFoundArticleInterceptor);
 
   await app.listen(process.env.PORT ?? 3200);
 }

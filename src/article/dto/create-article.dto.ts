@@ -9,4 +9,8 @@ export class CreateArticleDto {
     message: '内容不能为空',
   })
   content: string;
+  @IsNotEmpty({
+    message: '栏目名不能为空',
+  })
+  categoryId: number;
 }
