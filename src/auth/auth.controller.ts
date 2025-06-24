@@ -5,6 +5,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from '@/jwt/jwtAuth.guard';
 import { AdminAuthDecorator } from '@/common/decorator/adminAuth.decorator';
 import { MyMethodDecorator } from '@/common/decorator/methods.decorator';
+import { MyParamDecorator } from '@/common/decorator/param.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -22,8 +23,10 @@ export class AuthController {
   // @UseGuards(JwtAuthGuard)
   // 使用自定义的方法装饰器
   @MyMethodDecorator()
-  login(@Body() loginUserDto: LoginUserDto) {
-    console.log(loginUserDto);
+  login(
+    @Body() loginUserDto: LoginUserDto,
+    @MyParamDecorator() user: any) {
+    console.log('MyParamDecorator', user);
     return this.authService.login(loginUserDto);
   }
 
