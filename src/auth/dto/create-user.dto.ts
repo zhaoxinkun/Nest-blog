@@ -2,6 +2,7 @@ import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 import { IsUniqueDecorator } from '@/common/decorator/is-unique.decorator';
 
 export class CreateUserDto {
+  // 用户名
   @IsNotEmpty({
     message: 'username is required',
   })
@@ -15,7 +16,7 @@ export class CreateUserDto {
   @IsUniqueDecorator('name', 'user', { message: 'user is already exists' })
   name: string;
 
-
+  // 用户密码
   @IsNotEmpty({
     message: 'password is required',
   })
@@ -25,6 +26,7 @@ export class CreateUserDto {
   password: string;
 
 
+  // 邮箱
   // 使用自定义验证器类
   // @Validate(IsEmailAlreadyExist)
   // 使用自定义验证装饰器
@@ -33,4 +35,11 @@ export class CreateUserDto {
   @IsOptional()
   @IsUniqueDecorator('email', 'user', { message: 'email is already existsXXXX' })
   email: string;
+
+
+  // 用户角色
+  @IsNotEmpty({
+    message: 'role is required',
+  })
+  role: string;
 }

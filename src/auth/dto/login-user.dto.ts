@@ -14,4 +14,9 @@ export class LoginUserDto {
 
   @IsOptional()
   email: string | null;
+
+  @IsNotEmpty({
+    message: 'role is required',
+  })
+  role: string;
 }

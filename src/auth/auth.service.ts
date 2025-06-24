@@ -5,6 +5,8 @@ import *  as bcrypt from 'bcryptjs';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from '@/jwt/constants';
+import { JwtPayload } from '@/jwt/jwt-payload.interface';
+import { Role } from '@/common/enum/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -40,6 +42,7 @@ export class AuthService {
         name: createUserDto.name,
         password: await bcrypt.hash(createUserDto.password, salt),  //加密密码
         email: createUserDto.email || null,
+        role: createUserDto.role || null,
       },
     });
 
@@ -68,9 +71,10 @@ export class AuthService {
     }
 
     // 签发token
-    const payload = {
+    const payload: JwtPayload = {
       sub: findUser.id,
       name: findUser.name,
+      roles: [findUser.role as Role],// ❗注意：必须是 Role[]，如 ['admin', 'user']
     };
 
     // 这里做打印测试
@@ -90,6 +94,11 @@ export class AuthService {
       },
     };
 
+  }
+
+  // 查询所有用户
+  findAll() {
+    return this.prisma.user.findMany();
   }
 
 

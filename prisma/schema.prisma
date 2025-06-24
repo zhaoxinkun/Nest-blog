@@ -22,6 +22,7 @@ model user {
   name     String  @unique
   password String
   email    String? @unique
+  role     String?
 }
 
 //栏目模型

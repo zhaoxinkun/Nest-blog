@@ -16,6 +16,7 @@ async function run() {
       name: 'akin',
       password: await bcrypt.hash('123456', salt),
       email: '1213787373@qq.com',
+      role: 'admin',
     },
   });
 

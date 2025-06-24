@@ -3,6 +3,9 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from '@/jwt/jwtAuth.guard';
+import { Roles } from '@/common/decorator/roles.decorator';
+import { Role } from '@/common/enum/role.enum';
+import { RolesGuard } from '@/common/guards/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -28,6 +31,14 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   profile(@Request() req: any) {
     return req.user;
+  }
+
+  // 查询所有的用户
+  @Get('allUsers')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getAllUsers() {
+    return this.authService.findAll();
   }
 
 }
