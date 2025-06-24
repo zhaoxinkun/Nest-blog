@@ -100,6 +100,5 @@ export class AuthService {
   findAll() {
     return this.prisma.user.findMany();
   }
-
-
+  
 }

@@ -9,6 +9,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '@/jwt/constants';
 import { JwtStrategy } from '@/jwt/jwt.strategy';
 import * as process from 'node:process';
+import { MyClassDecorator } from '@/common/decorator/class.decorator';
+
 
 @Module({
   imports: [
@@ -34,5 +36,7 @@ import * as process from 'node:process';
   ],
   controllers: [AuthController],
 })
+
+@MyClassDecorator()
 export class AuthModule {
 }
