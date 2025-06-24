@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from '@/jwt/jwtAuth.guard';
 import { AdminAuthDecorator } from '@/common/decorator/adminAuth.decorator';
+import { MyMethodDecorator } from '@/common/decorator/methods.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -12,13 +13,15 @@ export class AuthController {
 
   // 注册
   @Post('register')
-  register(@Body() createUserDto: CreateUserDto,) {
+  register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
 
   // 登录
   @Post('login')
   // @UseGuards(JwtAuthGuard)
+  // 使用自定义的方法装饰器
+  @MyMethodDecorator()
   login(@Body() loginUserDto: LoginUserDto) {
     console.log(loginUserDto);
     return this.authService.login(loginUserDto);
